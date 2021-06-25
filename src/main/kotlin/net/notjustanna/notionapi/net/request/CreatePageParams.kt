@@ -3,6 +3,7 @@ package net.notjustanna.notionapi.net.request
 import net.notjustanna.notionapi.model.database.Database
 import net.notjustanna.notionapi.model.page.Page
 import net.notjustanna.notionapi.model.page.PageParent
+import net.notjustanna.notionapi.net.request.annotation.NotionDsl
 import net.notjustanna.notionapi.net.request.block.PageBuilder
 import net.notjustanna.notionapi.net.request.properties.PropertiesBuilder
 import net.notjustanna.notionapi.utils.buildJsonObject
@@ -15,22 +16,26 @@ class CreatePageParams {
             field = value
         }
 
+    @NotionDsl
     fun parent(database: Database) {
         this.parent = database.toParent()
     }
 
+    @NotionDsl
     fun parent(page: Page) {
         this.parent = page.toParent()
     }
 
     var properties = PropertiesBuilder()
 
+    @NotionDsl
     fun properties(block: PropertiesBuilder.() -> Unit) {
         this.properties = this.properties.apply(block)
     }
 
     var children: PageBuilder? = null
 
+    @NotionDsl
     fun children(block: PageBuilder.() -> Unit) {
         this.children = (this.children ?: PageBuilder()).apply(block)
     }

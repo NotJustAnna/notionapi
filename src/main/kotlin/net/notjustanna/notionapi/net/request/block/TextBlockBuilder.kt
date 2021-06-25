@@ -2,23 +2,33 @@ package net.notjustanna.notionapi.net.request.block
 
 import com.grack.nanojson.JsonObject
 import net.notjustanna.notionapi.model.block.BlockType
-import net.notjustanna.notionapi.net.request.richtext.FormulaBuilder
+import net.notjustanna.notionapi.net.request.annotation.NotionDsl
+import net.notjustanna.notionapi.net.request.richtext.EquationBuilder
 import net.notjustanna.notionapi.net.request.richtext.MentionBuilder
 import net.notjustanna.notionapi.net.request.richtext.RichTextListBuilder
 import net.notjustanna.notionapi.net.request.richtext.TextBuilder
 import net.notjustanna.notionapi.utils.jsonObjectOf
 
+@NotionDsl
 open class TextBlockBuilder(val type: BlockType) {
-    private val richText = RichTextListBuilder()
+    protected val richText = RichTextListBuilder()
 
-    fun formula(block: FormulaBuilder.() -> Unit) {
-        richText.formula(block)
+    @NotionDsl
+    operator fun String.unaryPlus() {
+        richText.text { +this@unaryPlus }
     }
 
+    @NotionDsl
+    fun equation(block: EquationBuilder.() -> Unit) {
+        richText.equation(block)
+    }
+
+    @NotionDsl
     fun mention(block: MentionBuilder.() -> Unit) {
         richText.mention(block)
     }
 
+    @NotionDsl
     fun text(block: TextBuilder.() -> Unit) {
         richText.text(block)
     }

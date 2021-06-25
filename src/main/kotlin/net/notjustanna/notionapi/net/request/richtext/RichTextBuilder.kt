@@ -2,8 +2,10 @@ package net.notjustanna.notionapi.net.request.richtext
 
 import com.grack.nanojson.JsonObject
 import net.notjustanna.notionapi.model.Color
+import net.notjustanna.notionapi.net.request.annotation.NotionDsl
 import net.notjustanna.notionapi.utils.buildJsonObject
 
+@NotionDsl
 abstract class RichTextBuilder {
     // BELOW: Inlined annotations
 
