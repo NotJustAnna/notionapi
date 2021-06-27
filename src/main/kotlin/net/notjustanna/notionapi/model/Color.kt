@@ -1,18 +1,12 @@
 package net.notjustanna.notionapi.model
 
 import net.notjustanna.notionapi.utils.JsonEnum
+import net.notjustanna.notionapi.utils.lowercaseOfName
 
-enum class Color(override val value: String?) : JsonEnum {
-    DEFAULT("default"),
-    GRAY("gray"),
-    BROWN("brown"),
-    ORANGE("orange"),
-    YELLOW("yellow"),
-    GREEN("green"),
-    BLUE("blue"),
-    PURPLE("purple"),
-    PINK("pink"),
-    RED("red");
+enum class Color : JsonEnum {
+    DEFAULT, GRAY, BROWN, ORANGE, YELLOW, GREEN, BLUE, PURPLE, PINK, RED;
 
-    companion object : JsonEnum.Companion<Color>(Color::values, { DEFAULT })
+    override val value by lowercaseOfName()
+
+    companion object : JsonEnum.Companion<Color>(::values, { DEFAULT })
 }
