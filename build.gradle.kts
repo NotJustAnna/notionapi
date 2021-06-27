@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "net.notjustanna.notionapi"
-version = "0.1"
+version = "0.1.0"
 
 repositories {
     mavenCentral()
