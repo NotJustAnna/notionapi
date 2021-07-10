@@ -3,7 +3,6 @@ package net.notjustanna.notionapi.net.request.filter
 import com.grack.nanojson.JsonArray
 import com.grack.nanojson.JsonObject
 import net.notjustanna.notionapi.model.database.property.DatabaseProperty
-import net.notjustanna.notionapi.model.property.PropertyType
 import net.notjustanna.notionapi.utils.jsonObjectOf
 
 sealed class Filter {
@@ -41,16 +40,13 @@ sealed class Filter {
 
     data class Property(val property: DatabaseProperty, val condition: FilterCondition, val value: Any) : Filter() {
         init {
-            require(property.type != PropertyType.UNKNOWN) { "Property type for '${property.id}' is unknown." }
             require(condition.validate(value)) { "Value '$value' is not valid for condition $condition" }
         }
 
         override fun toJson() = jsonObjectOf(
-            "property" to property.id, property.type.value!! to jsonObjectOf(condition.value to value)
+            "property" to property.id, property.type.value to jsonObjectOf(condition.value to value)
         )
     }
 
     internal abstract fun toJson(): JsonObject
 }
-
-
